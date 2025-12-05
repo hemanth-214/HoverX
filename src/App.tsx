@@ -24,12 +24,15 @@ import BlogPost from './pages/BlogPost';
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [dbInitialized, setDbInitialized] = useState(false);
+  
+  const initializeDatabase = useMutation(api.init.initializeDatabase);
 
   useEffect(() => {
     const initApp = async () => {
       try {
         // Initialize database with seed data
         if (!dbInitialized) {
+          await initializeDatabase();
           setDbInitialized(true);
         }
       } catch (error) {
